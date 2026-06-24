@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import API from "../services/api";
 
 function Register() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,42 +22,77 @@ function Register() {
     e.preventDefault();
 
     try {
-      await API.post("/auth/register", formData);
+      await API.post(
+        "/auth/register",
+        formData
+      );
+
       alert("Registration Successful");
+
+      navigate("/");
     } catch (error) {
-      console.log(error);
       alert("Registration Failed");
     }
   };
 
   return (
-    <div>
-      <h2>Register</h2>
+    <div className="min-h-screen bg-slate-100 flex items-center justify-center px-4">
+      <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
 
-      <form onSubmit={handleSubmit}>
-        <input
-          name="name"
-          placeholder="Name"
-          onChange={handleChange}
-        />
+        <h1 className="text-3xl font-bold text-center mb-2">
+          Create Account
+        </h1>
 
-        <input
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-        />
+        <p className="text-center text-gray-500 mb-8">
+          Register to get started
+        </p>
 
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          onChange={handleChange}
-        />
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4"
+        >
+          <input
+            name="name"
+            placeholder="Full Name"
+            onChange={handleChange}
+            className="w-full border rounded-lg p-3"
+          />
 
-        <button type="submit">
-          Register
-        </button>
-      </form>
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            onChange={handleChange}
+            className="w-full border rounded-lg p-3"
+          />
+
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            onChange={handleChange}
+            className="w-full border rounded-lg p-3"
+          />
+
+          <button
+            type="submit"
+            className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700"
+          >
+            Register
+          </button>
+        </form>
+
+        <p className="text-center mt-6 text-gray-600">
+          Already have an account?{" "}
+          <Link
+            to="/"
+            className="text-blue-600 font-medium"
+          >
+            Login
+          </Link>
+        </p>
+
+      </div>
     </div>
   );
 }
