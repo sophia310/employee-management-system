@@ -1,21 +1,32 @@
-const express=require("express");
-const cors=require("cors");
-const dotenv=require("dotenv");
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
 
 dotenv.config();
 
-const connectDB=require("./config/db");
+const connectDB = require("./config/db");
 
+const app = express();
+
+// Connect Database
 connectDB();
 
-const app=express();
-
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/auth",require("./routes/authRoutes"));
-app.use("/api/employees",require("./routes/employeeRoutes"));
+// Routes
+app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/employees", require("./routes/employeeRoutes"));
 
-app.listen(5000,()=>{
- console.log("Server Running");
+// Default Route
+app.get("/", (req, res) => {
+  res.send("Employee Management API is Running...");
+});
+
+// Port
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server Running on Port ${PORT}`);
 });
