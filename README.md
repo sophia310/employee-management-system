@@ -305,19 +305,16 @@ Request Body
 
 ## Frontend Deployment
 
-The frontend can be deployed using:
+The frontend is deployed using:
 
 * Vercel
-* Netlify
-
 ---
 
 ## Backend Deployment
 
-The backend can be deployed using:
+The backend is deployed using:
 
 * Render
-* Railway
 
 ---
 
